@@ -46,6 +46,7 @@ public class SamResourceClient {
         var apiClient = getApiClient(accessToken);
         var resourceApi = new ResourcesApi(apiClient);
 
+        logger.error("SAM REQUEST: %s %s %s %s".formatted(samResourceType, samResourceId, samAction, accessToken));
         var res = resourceApi.resourcePermissionV2(samResourceType, samResourceId, samAction);
         if (res) return oauthInfo.expiresAt().get();
         else {
