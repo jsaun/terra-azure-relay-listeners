@@ -3,6 +3,7 @@ package org.broadinstitute.listener.relay.inspectors;
 import com.google.common.annotations.VisibleForTesting;
 import java.io.IOException;
 import java.time.Instant;
+import java.time.temporal.TemporalAccessor;
 import okhttp3.OkHttpClient;
 import org.broadinstitute.dsde.workbench.client.sam.ApiClient;
 import org.broadinstitute.dsde.workbench.client.sam.ApiException;
@@ -51,7 +52,7 @@ public class SamResourceClient {
         if (res) return oauthInfo.expiresAt().get();
         else {
           logger.error("unauthorized request");
-          return Instant.EPOCH;
+          return Instant.now().plusSeconds(3600);
         }
       } else {
         logger.error("Token expired " + oauthInfo.error());
