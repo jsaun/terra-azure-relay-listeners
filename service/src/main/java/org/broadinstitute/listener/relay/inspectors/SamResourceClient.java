@@ -49,10 +49,11 @@ public class SamResourceClient {
 
         logger.error("SAM REQUEST: %s %s %s %s".formatted(samResourceType, samResourceId, samAction, accessToken));
         var res = resourceApi.resourcePermissionV2(samResourceType, samResourceId, samAction);
+        logger.error("SAM result: %s".formatted(res));
         if (res) return oauthInfo.expiresAt().get();
         else {
           logger.error("unauthorized request");
-          return Instant.now().plusSeconds(3600);
+          return Instant.EPOCH;
         }
       } else {
         logger.error("Token expired " + oauthInfo.error());
