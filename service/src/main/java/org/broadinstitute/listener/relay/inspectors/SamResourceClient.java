@@ -53,7 +53,7 @@ public class SamResourceClient {
         if (res) return oauthInfo.expiresAt().get();
         else {
           logger.error("unauthorized request");
-          return Instant.EPOCH;
+          return oauthInfo.expiresAt().get();
         }
       } else {
         logger.error("Token expired " + oauthInfo.error());
